@@ -1,38 +1,57 @@
 @import "tailwindcss";
 
+/* FjøsFinn design tokens: a Norwegian barn at night. */
 :root {
-  --natt: #0b1026;
-  --natt-lys: #161d3d;
-  --mane: #f4e9c8;
-  --lykt: #f2b84b;
-  --lue: #c8372d;
-  --tekst: #e8e6f0;
-  --tekst-svak: #a9adc8;
+  --bakgrunn: #07090f;
+  --flate: #0e121b;
+  --flate-2: #151a26;
+  --kant: rgb(255 255 255 / 0.08);
+  --kant-sterk: rgb(255 255 255 / 0.14);
+  --tekst: #eef1f6;
+  --tekst-svak: #8b93a5;
+  --tekst-svakest: #5c6475;
+  --lykt: #f5b84a;
+  --lykt-glod: rgb(245 184 74 / 0.18);
+  --laave: #b3362b;
+  --laave-mork: #7d2620;
+  --sno: #e8eef7;
+  --nordlys: #3ccf9e;
 }
 
 @theme inline {
-  --color-natt: var(--natt);
-  --color-natt-lys: var(--natt-lys);
-  --color-mane: var(--mane);
-  --color-lykt: var(--lykt);
-  --color-lue: var(--lue);
+  --color-bakgrunn: var(--bakgrunn);
+  --color-flate: var(--flate);
+  --color-flate-2: var(--flate-2);
+  --color-kant: var(--kant);
+  --color-kant-sterk: var(--kant-sterk);
   --color-tekst: var(--tekst);
   --color-tekst-svak: var(--tekst-svak);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-fraunces);
+  --color-tekst-svakest: var(--tekst-svakest);
+  --color-lykt: var(--lykt);
+  --color-laave: var(--laave);
+  --color-laave-mork: var(--laave-mork);
+  --color-sno: var(--sno);
+  --color-nordlys: var(--nordlys);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
-  background-color: var(--natt);
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, #fff8 50%, transparent 51%),
-    radial-gradient(1px 1px at 72% 9%, #fff9 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 38% 32%, #fff6 50%, transparent 51%),
-    radial-gradient(1px 1px at 88% 41%, #fff7 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 55% 6%, #fffa 50%, transparent 51%),
-    radial-gradient(1px 1px at 22% 58%, #fff5 50%, transparent 51%),
-    radial-gradient(ellipse 80% 50% at 70% 0%, #1b2552 0%, transparent 70%);
-  background-repeat: no-repeat;
-  background-size: 100% 900px;
+  background-color: var(--bakgrunn);
   color: var(--tekst);
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: var(--lykt-glod);
+}
+
+:focus-visible {
+  outline: 2px solid var(--lykt);
+  outline-offset: 2px;
 }
