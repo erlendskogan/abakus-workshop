@@ -4,10 +4,10 @@
 
 **Blocked by:** 03
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A search for "smør" shows the smørklatt Annonse and hides Annonser without the word.
-- [ ] The search ignores upper and lower case.
-- [ ] A search with no match shows a clear message.
-- [ ] The search word is in the URL, so that a search can be shared.
-- [ ] E2e tests cover a match and no match.
+- [x] A search for "smør" shows the smørklatt Annonse and hides Annonser without the word.
+- [x] The search ignores upper and lower case.
+- [x] A search with no match shows a clear message.
+- [x] The search word is in the URL, so that a search can be shared.
+- [x] E2e tests cover a match and no match.

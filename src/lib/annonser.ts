@@ -24,3 +24,15 @@ export async function nyesteAnnonser(grense?: number): Promise<Annonse[]> {
   );
   return rows;
 }
+
+export async function sokAnnonser(tekst: string): Promise<Annonse[]> {
+  // Escape LIKE wildcards, so that "%" and "_" match themselves.
+  const monster = `%${tekst.replace(/[\\%_]/g, "\\$&")}%`;
+  const { rows } = await pool.query<Annonse>(
+    `SELECT ${kolonner} FROM annonser
+     WHERE tittel ILIKE $1 OR beskrivelse ILIKE $1
+     ORDER BY opprettet DESC, id DESC`,
+    [monster],
+  );
+  return rows;
+}
