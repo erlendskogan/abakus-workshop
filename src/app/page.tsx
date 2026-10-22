@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Toppfelt } from "@/components/Toppfelt";
 import { SisteAnnonser } from "./SisteAnnonser";
 
 export const dynamic = "force-dynamic";
@@ -21,15 +22,7 @@ const steg = [
 export default function Forside() {
   return (
     <main className="mx-auto max-w-5xl px-5 pb-20">
-      <header className="flex items-center justify-between py-6">
-        <span className="font-display text-xl font-semibold text-mane">FjøsFinn</span>
-        <Link
-          href="/annonser/ny"
-          className="rounded-full border border-lykt/60 px-4 py-2 text-sm text-lykt transition hover:bg-lykt/10"
-        >
-          Legg ut annonse
-        </Link>
-      </header>
+      <Toppfelt lenke="ny-annonse" />
 
       <section className="relative grid gap-10 pt-10 pb-16 md:grid-cols-[1.4fr_1fr] md:items-center md:pt-20">
         <div>
@@ -90,7 +83,7 @@ export default function Forside() {
             Hvem er FjøsFinn for?
           </h2>
           <p className="mt-4 leading-relaxed text-tekst">
-            For fjøsnisser på alle gårder i Norge, store som små. Du trenger ingen konto: skriv navnet ditt og gården
+            For fjøsnisser på alle gårder i Norge, store som små. Du trenger bare navnet ditt og gården
             din, så vet de andre nissene hvor de finner deg.
           </p>
           <p className="mt-4 leading-relaxed text-tekst-svak">

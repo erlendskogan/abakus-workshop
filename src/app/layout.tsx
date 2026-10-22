@@ -14,7 +14,7 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: "FjøsFinn – markedsplassen for fjøsnisser",
-  description: "Kjøp, bytt og bli kvitt ting fra låven. Bare for fjøsnisser.",
+  description: "Bytt bort det som hoper seg opp på låven, og finn det du mangler. Bare for fjøsnisser.",
 };
 
 export default function RootLayout({

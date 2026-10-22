@@ -7,13 +7,22 @@ export function unikTittel(navn: string) {
   return `${navn} ${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
-export async function leggUtAnnonse(page: Page, tittel: string) {
+type Skjemafelt = "Tittel" | "Beskrivelse" | "Byttes mot" | "Navnet ditt" | "Gården din";
+
+// Fills in the form on /annonser/ny and posts it. A field set to null is left empty.
+export async function leggUtAnnonse(page: Page, tittel: string, endringer: Partial<Record<Skjemafelt, string | null>> = {}) {
+  const verdier: Record<Skjemafelt, string | null> = {
+    Tittel: tittel,
+    Beskrivelse: "Skrevet av en e2e-test.",
+    "Byttes mot": "Ingenting",
+    "Navnet ditt": "Testnissen",
+    "Gården din": "Testgården",
+    ...endringer,
+  };
   await page.goto("/annonser/ny");
-  await page.getByLabel("Tittel").fill(tittel);
-  await page.getByLabel("Beskrivelse").fill("Skrevet av en e2e-test.");
-  await page.getByLabel("Byttes mot").fill("Ingenting");
-  await page.getByLabel("Navnet ditt").fill("Testnissen");
-  await page.getByLabel("Gården din").fill("Testgården");
+  for (const [etikett, verdi] of Object.entries(verdier)) {
+    if (verdi !== null) await page.getByLabel(etikett).fill(verdi);
+  }
   await page.getByRole("button", { name: "Legg ut annonse" }).click();
 }
 

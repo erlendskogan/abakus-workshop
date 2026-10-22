@@ -3,19 +3,16 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { opprettAnnonse, type NyAnnonse } from "@/lib/annonser";
-
-export type Felt = keyof NyAnnonse;
+import { felter, type Felt } from "./felter";
 
 export type Skjemastatus = {
   verdier: Partial<NyAnnonse>;
   mangler: Felt[];
 };
 
-const felter: Felt[] = ["tittel", "beskrivelse", "byttesMot", "nisse", "gard"];
-
 export async function leggUtAnnonse(_forrige: Skjemastatus, data: FormData): Promise<Skjemastatus> {
-  const verdier = Object.fromEntries(felter.map((f) => [f, String(data.get(f) ?? "").trim()])) as NyAnnonse;
-  const mangler = felter.filter((f) => verdier[f] === "");
+  const verdier = Object.fromEntries(felter.map(({ navn }) => [navn, String(data.get(navn) ?? "").trim()])) as NyAnnonse;
+  const mangler = felter.map(({ navn }) => navn).filter((navn) => verdier[navn] === "");
   if (mangler.length > 0) return { verdier, mangler };
 
   await opprettAnnonse(verdier);

@@ -8,7 +8,7 @@ test.describe("legg ut annonse", () => {
     await slettAnnonse(tittel);
   });
 
-  test("en utfylt annonse vises øverst i listen", async ({ page }) => {
+  test("en utfylt annonse vises i listen", async ({ page }) => {
     await leggUtAnnonse(page, tittel);
 
     await expect(page).toHaveURL(/\/annonser$/);
@@ -19,11 +19,7 @@ test.describe("legg ut annonse", () => {
 
   test("et skjema med manglende felt blir ikke lagt ut", async ({ page }) => {
     const uten = unikTittel("Uten byttes mot");
-    await page.goto("/annonser/ny");
-    await page.getByLabel("Tittel").fill(uten);
-    await page.getByLabel("Beskrivelse").fill("Mangler felt.");
-    await page.getByLabel("Navnet ditt").fill("Testnissen");
-    await page.getByRole("button", { name: "Legg ut annonse" }).click();
+    await leggUtAnnonse(page, uten, { "Byttes mot": null, "Gården din": null });
 
     await expect(page.getByRole("alert").filter({ hasText: "Annonsen ble ikke lagt ut" })).toContainText(
       "Du må fylle ut: Byttes mot, Gården din.",

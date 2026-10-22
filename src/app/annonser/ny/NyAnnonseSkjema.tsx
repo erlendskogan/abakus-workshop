@@ -1,20 +1,13 @@
 "use client";
 
 import { useActionState } from "react";
-import { leggUtAnnonse, type Felt, type Skjemastatus } from "./actions";
+import { leggUtAnnonse, type Skjemastatus } from "./actions";
+import { felter } from "./felter";
 
-const felter: { navn: Felt; etikett: string; hjelp: string; lang?: boolean }[] = [
-  { navn: "tittel", etikett: "Tittel", hjelp: "Hva vil du bytte bort?" },
-  { navn: "beskrivelse", etikett: "Beskrivelse", hjelp: "Hvordan ser tingen ut, og er den hel?", lang: true },
-  { navn: "byttesMot", etikett: "Byttes mot", hjelp: "Hva vil du ha igjen?" },
-  { navn: "nisse", etikett: "Navnet ditt", hjelp: "Slik at de andre nissene vet hvem du er." },
-  { navn: "gard", etikett: "Gården din", hjelp: "Slik at de andre nissene finner deg." },
-];
-
-const start: Skjemastatus = { verdier: {}, mangler: [] };
+const tomtSkjema: Skjemastatus = { verdier: {}, mangler: [] };
 
 export function NyAnnonseSkjema() {
-  const [status, handling, sender] = useActionState(leggUtAnnonse, start);
+  const [status, handling, sender] = useActionState(leggUtAnnonse, tomtSkjema);
   const manglerEtiketter = felter.filter((f) => status.mangler.includes(f.navn)).map((f) => f.etikett);
 
   return (
@@ -29,7 +22,7 @@ export function NyAnnonseSkjema() {
         const klasse = `w-full rounded-xl border bg-natt-lys/70 px-4 py-3 text-tekst focus:border-lykt focus:outline-none ${
           mangler ? "border-lue" : "border-white/15"
         }`;
-        const felles = {
+        const feltProps = {
           id: f.navn,
           name: f.navn,
           required: true,
@@ -46,7 +39,7 @@ export function NyAnnonseSkjema() {
             <p id={`${f.navn}-hjelp`} className={`mt-1 mb-2 text-sm ${mangler ? "text-[#ff8a80]" : "text-tekst-svak"}`}>
               {mangler ? `Du må fylle ut ${f.etikett.toLowerCase()}.` : f.hjelp}
             </p>
-            {f.lang ? <textarea rows={4} {...felles} /> : <input type="text" {...felles} />}
+            {f.lang ? <textarea rows={4} {...feltProps} /> : <input type="text" {...feltProps} />}
           </div>
         );
       })}

@@ -17,6 +17,8 @@ Next.js (App Router) with TypeScript and Tailwind CSS, managed with pnpm. The ap
 
 Do all database work (create tables, insert data, check data) through the `postgres` MCP server. Never use `psql`; `.claude/settings.json` blocks it. Keep the SQL that you run in `db/schema.sql` and `db/seed.sql`, so that a new machine can rebuild the database. The app connects with `DATABASE_URL` from `.env.local`.
 
+One exception: the site cannot delete an Annonse, so the e2e tests delete the Annonser they create straight in the database (`e2e/annonsehjelp.ts`). Use this only to clean up after a test, never to check data: a test checks what the page shows.
+
 - `README.md`: the workshop plan for the students, with the setup steps for the database and the MCP server in its last section, `## Teknisk oppsett`.
 - `workshop/PRODUCT_BRIEF.md`: the product the team builds, written by `/generate-product`.
 - `workshop/NOTES.md`: the team's reflection sheet, written by `/note`.

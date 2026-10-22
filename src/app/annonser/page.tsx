@@ -1,32 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AnnonseKort } from "@/components/AnnonseKort";
+import { Toppfelt } from "@/components/Toppfelt";
 import { nyesteAnnonser, sokAnnonser } from "@/lib/annonser";
-
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Annonser – FjøsFinn",
 };
 
 export default async function Annonser({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
-  const { q } = await searchParams;
-  const sok = (Array.isArray(q) ? q[0] : q)?.trim() ?? "";
+  const { q: sokeparameter } = await searchParams;
+  const sok = (Array.isArray(sokeparameter) ? sokeparameter[0] : sokeparameter)?.trim() ?? "";
   const annonser = sok ? await sokAnnonser(sok) : await nyesteAnnonser();
 
   return (
     <main className="mx-auto max-w-5xl px-5 pb-20">
-      <header className="flex items-center justify-between py-6">
-        <Link href="/" className="font-display text-xl font-semibold text-mane">
-          FjøsFinn
-        </Link>
-        <Link
-          href="/annonser/ny"
-          className="rounded-full border border-lykt/60 px-4 py-2 text-sm text-lykt transition hover:bg-lykt/10"
-        >
-          Legg ut annonse
-        </Link>
-      </header>
+      <Toppfelt lenke="ny-annonse" />
 
       <h1 className="pt-8 font-display text-4xl font-bold text-mane md:text-5xl">Annonser</h1>
       <p className="mt-3 text-tekst-svak">Det nissene på gårdene rundt deg vil bytte bort, nyeste først.</p>
@@ -74,9 +63,9 @@ export default async function Annonser({ searchParams }: { searchParams: Promise
         )
       ) : (
         <ul className="mt-8 grid gap-5 md:grid-cols-2">
-          {annonser.map((a) => (
-            <li key={a.id}>
-              <AnnonseKort annonse={a} />
+          {annonser.map((annonse) => (
+            <li key={annonse.id}>
+              <AnnonseKort annonse={annonse} />
             </li>
           ))}
         </ul>

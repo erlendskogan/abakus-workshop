@@ -16,10 +16,11 @@ export type Annonse = {
 };
 
 const kolonner = `id::int, tittel, beskrivelse, byttes_mot AS "byttesMot", nisse, gard, opprettet`;
+const nyesteForst = "ORDER BY opprettet DESC, id DESC";
 
 export async function nyesteAnnonser(grense?: number): Promise<Annonse[]> {
   const { rows } = await pool.query<Annonse>(
-    `SELECT ${kolonner} FROM annonser ORDER BY opprettet DESC, id DESC LIMIT $1`,
+    `SELECT ${kolonner} FROM annonser ${nyesteForst} LIMIT $1`,
     [grense ?? null],
   );
   return rows;
@@ -31,7 +32,7 @@ export async function sokAnnonser(tekst: string): Promise<Annonse[]> {
   const { rows } = await pool.query<Annonse>(
     `SELECT ${kolonner} FROM annonser
      WHERE tittel ILIKE $1 OR beskrivelse ILIKE $1
-     ORDER BY opprettet DESC, id DESC`,
+     ${nyesteForst}`,
     [monster],
   );
   return rows;
