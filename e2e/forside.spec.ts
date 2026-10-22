@@ -25,16 +25,21 @@ test.describe("forsiden", () => {
     );
   });
 
-  test("viser den nyeste annonsen, med lenke til alle", async ({ page }) => {
+  test("viser de nyeste annonsene, med lenke til alle", async ({ page }) => {
     const tittel = unikTittel("Ullvott til venstre hånd");
     try {
       await leggUtAnnonse(page, tittel);
-      await page.goto("/");
 
-      const siste = page.getByRole("region", { name: "Siste annonser" });
-      await expect(siste.getByRole("heading", { name: tittel })).toBeVisible();
-      await expect(siste.getByRole("listitem")).toHaveCount(3);
-      await expect(siste.getByRole("link", { name: /Se alle annonsene/ })).toHaveAttribute("href", "/annonser");
+      // Other tests post Annonser at the same time, so compare with the list, and retry until both pages agree.
+      await expect(async () => {
+        await page.goto("/annonser");
+        const nyeste = await page.getByRole("listitem").getByRole("heading", { level: 2 }).allTextContents();
+        await page.goto("/");
+        const siste = page.getByRole("region", { name: "Siste annonser" });
+        await expect(siste.getByRole("heading", { level: 3 })).toHaveText(nyeste.slice(0, 3), { timeout: 1000 });
+      }).toPass();
+      await expect(page.getByRole("region", { name: "Siste annonser" }).getByRole("link", { name: /Se alle annonsene/ }))
+        .toHaveAttribute("href", "/annonser");
     } finally {
       await slettAnnonse(tittel);
     }

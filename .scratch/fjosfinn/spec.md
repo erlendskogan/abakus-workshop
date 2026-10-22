@@ -41,7 +41,7 @@ FjøsFinn is a website where Nisser trade things. The front page tells what Fjø
 - Search is a case-insensitive substring match on title and description.
 - The agent creates the table and the example data through the `postgres` MCP server, never with `psql`. The SQL is also kept in the repo (a schema file and a seed file) as the source of truth, so that a new machine can rebuild the database by running the files through the MCP server.
 - Routes: the front page, the list of Annonser with search, and a page with the form to post an Annonse.
-- All text on the site is in Norwegian bokmål and uses the terms from `GLOSSARY.md`.
+- All text on the site is in Norwegian bokmål and uses the terms from `GLOSSARY.md`. No page uses a word from an `_Avoid_:` line in the glossary, not even in a negation ("ingen konto"), in the tab title or in the description for search engines.
 
 ## Testing Decisions
 
@@ -49,6 +49,7 @@ FjøsFinn is a website where Nisser trade things. The front page tells what Fjø
 - A test that creates an Annonse uses a unique title, and removes the Annonse afterwards, so that the tests do not fill the database.
 - A screenshot script saves a PNG of a page, so that the agent can read the image and judge the look of the page itself.
 - No prior art: this spec creates the first tests in the repo.
+- `e2e/ordliste.spec.ts` reads the avoided words from `GLOSSARY.md`, visits every page that the site links to, and fails if a page shows one of the words. Every ticket that adds or changes page text must keep this test green.
 
 ## Out of Scope
 

@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This is a workshop repo where the team uses Claude Code to build FjøsFinn, a marketplace for barn gnomes (see `workshop/PRODUCT_BRIEF.md`). Use the terms in `GLOSSARY.md` in code, tickets and page text. The spec and the tickets are in `.scratch/fjosfinn/`.
+This is a workshop repo where the team uses Claude Code to build FjøsFinn, a marketplace for barn gnomes (see `workshop/PRODUCT_BRIEF.md`). Use the terms in `GLOSSARY.md` in code, tickets and page text. Never use a word from an `_Avoid_:` line on the site, not even to say that something does not exist ("ingen konto"). `e2e/ordliste.spec.ts` visits every page that the site links to and fails on these words, so link each new page from another page. If a page or state is not reachable by a link, such as an error message, add it to that test. The spec and the tickets are in `.scratch/fjosfinn/`.
 
 ## Stack and commands
 
@@ -10,12 +10,12 @@ Next.js (App Router) with TypeScript and Tailwind CSS, managed with pnpm. The ap
 
 - `pnpm dev`: start the app on http://localhost:3000.
 - `pnpm typecheck` and `pnpm lint`: run both before you say that work is done.
-- `pnpm test:e2e`: run the end-to-end tests. Playwright starts the app on port 3100 by itself. End-to-end tests are the only test seam: test what a Nisse sees and does on the page, not the code.
+- `pnpm test:e2e`: run the end-to-end tests. Playwright starts the app on port 3100 by itself. End-to-end tests are the only test seam: test what a Nisse sees and does on the page, not the code. Set `E2E_PORT` to run the tests on another port, for example from a git worktree while another checkout runs them.
 - `pnpm screenshot <url> <file> [--mobile]`: save a PNG of a page under `screenshots/`. After a change to a page, take a screenshot at desktop and phone width, read the image, and fix what looks wrong before you say that the page is done.
 
 ## Database
 
-Do all database work (create tables, insert data, check data) through the `postgres` MCP server. Never use `psql`; `.claude/settings.json` blocks it. Keep the SQL that you run in `db/schema.sql` and `db/seed.sql`, so that a new machine can rebuild the database. The app connects with `DATABASE_URL` from `.env.local`.
+Do all database work (create tables, insert data, check data) through the `postgres` MCP server. Never use `psql`; `.claude/settings.json` blocks it. Do not read `.env.local`: it holds secrets. `.env.template` has the same `DATABASE_URL`. Keep the SQL that you run in `db/schema.sql` and `db/seed.sql`, so that a new machine can rebuild the database. The app connects with `DATABASE_URL` from `.env.local`.
 
 One exception: the site cannot delete an Annonse, so the e2e tests delete the Annonser they create straight in the database (`e2e/annonsehjelp.ts`). Use this only to clean up after a test, never to check data: a test checks what the page shows.
 
