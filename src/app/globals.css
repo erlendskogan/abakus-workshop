@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* FjøsFinn design tokens: a Norwegian barn at night. */
+:root {
+  --bakgrunn: #07090f;
+  --flate: #0e121b;
+  --flate-2: #151a26;
+  --kant: rgb(255 255 255 / 0.08);
+  --kant-sterk: rgb(255 255 255 / 0.14);
+  --tekst: #eef1f6;
+  --tekst-svak: #8b93a5;
+  --tekst-svakest: #5c6475;
+  --lykt: #f5b84a;
+  --lykt-glod: rgb(245 184 74 / 0.18);
+  --laave: #b3362b;
+  --laave-mork: #7d2620;
+  --sno: #e8eef7;
+  --nordlys: #3ccf9e;
+}
+
+@theme inline {
+  --color-bakgrunn: var(--bakgrunn);
+  --color-flate: var(--flate);
+  --color-flate-2: var(--flate-2);
+  --color-kant: var(--kant);
+  --color-kant-sterk: var(--kant-sterk);
+  --color-tekst: var(--tekst);
+  --color-tekst-svak: var(--tekst-svak);
+  --color-tekst-svakest: var(--tekst-svakest);
+  --color-lykt: var(--lykt);
+  --color-laave: var(--laave);
+  --color-laave-mork: var(--laave-mork);
+  --color-sno: var(--sno);
+  --color-nordlys: var(--nordlys);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bakgrunn);
+  color: var(--tekst);
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: var(--lykt-glod);
+}
+
+:focus-visible {
+  outline: 2px solid var(--lykt);
+  outline-offset: 2px;
+}
+
+/* Spotlight: a lantern glow that follows the pointer over a card (see components/ui/Spotlight.tsx). */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before,
+.spotlight::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.spotlight::before {
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(360px circle at var(--x, 50%) var(--y, 0%), rgb(245 184 74 / 0.09), transparent 65%);
+}
+.spotlight::after {
+  inset: -1px;
+  padding: 1px;
+  background: radial-gradient(220px circle at var(--x, 50%) var(--y, 0%), rgb(245 184 74 / 0.45), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.spotlight:hover::before,
+.spotlight:hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::before,
+  .spotlight::after {
+    transition: none;
+  }
+}

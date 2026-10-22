@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(psql:*)",
+      "Bash(psql *)",
+      "Bash(docker exec * psql*)",
+      "Bash(docker exec *psql*)",
+      "Read(./.env.local)",
+      "Bash(cat *.env.local*)"
+    ]
+  }
+}
