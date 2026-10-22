@@ -14,6 +14,16 @@ const context = await browser.newContext(
 );
 const page = await context.newPage();
 await page.goto(url, { waitUntil: "networkidle" });
+// Content fades in when it scrolls into view, so scroll through the page first.
+await page.evaluate(async () => {
+  for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight / 2) {
+    window.scrollTo(0, y);
+    await new Promise((resolve) => setTimeout(resolve, 120));
+  }
+  window.scrollTo(0, 0);
+});
+// Give the 3D hero scene time to load and render its first frames.
+await page.waitForTimeout(2500);
 await page.screenshot({ path: file, fullPage: true });
 await browser.close();
 console.log(`Saved ${file}`);

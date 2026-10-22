@@ -8,7 +8,7 @@ export async function SisteAnnonser() {
   if (annonser.length === 0) return null;
 
   return (
-    <section aria-labelledby="siste-annonser" className="py-12 md:py-20">
+    <section aria-labelledby="siste-annonser" className="pt-8 pb-12 md:pt-6 md:pb-20">
       <Inn className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>
           <p className="font-mono text-xs tracking-[0.06em] text-tekst-svakest uppercase">Nytt på låvene</p>

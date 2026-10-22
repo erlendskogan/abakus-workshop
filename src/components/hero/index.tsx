@@ -5,8 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "./useReducedMotion";
 
 // Soft edges, so the scene never shows the box it is drawn in.
-const EDGE_MASK =
-  "linear-gradient(to bottom, #000 76%, transparent 99%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%)";
+const EDGE_MASK = "radial-gradient(ellipse 50% 50% at 50% 48%, #000 66%, transparent 100%)";
 
 // three.js only runs in the browser, and it is heavy: load it after the page.
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -43,9 +42,7 @@ export function HeroScene() {
         }`}
         style={{
           maskImage: EDGE_MASK,
-          maskComposite: "intersect",
           WebkitMaskImage: EDGE_MASK,
-          WebkitMaskComposite: "source-in",
         }}
       >
         <Scene active={inView} reducedMotion={reducedMotion} onReady={onReady} />
