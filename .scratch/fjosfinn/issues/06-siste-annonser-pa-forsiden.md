@@ -4,9 +4,9 @@
 
 **Blocked by:** 02, 03
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] The front page shows the three newest Annonser.
-- [ ] The section links to `/annonser`.
-- [ ] An e2e test checks that the newest Annonse shows on the front page.
-- [ ] The agent has taken a screenshot of the front page and checked that the section fits the night theme.
+- [x] The front page shows the three newest Annonser.
+- [x] The section links to `/annonser`.
+- [x] An e2e test checks that the newest Annonse shows on the front page.
+- [x] The agent has taken a screenshot of the front page and checked that the section fits the night theme.

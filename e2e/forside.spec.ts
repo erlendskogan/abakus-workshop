@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { leggUtAnnonse, slettAnnonse, unikTittel } from "./annonsehjelp";
 
 test.describe("forsiden", () => {
   test.beforeEach(async ({ page }) => {
@@ -22,5 +23,20 @@ test.describe("forsiden", () => {
       "href",
       "/annonser/ny",
     );
+  });
+
+  test("viser den nyeste annonsen, med lenke til alle", async ({ page }) => {
+    const tittel = unikTittel("Ullvott til venstre hånd");
+    try {
+      await leggUtAnnonse(page, tittel);
+      await page.goto("/");
+
+      const siste = page.getByRole("region", { name: "Siste annonser" });
+      await expect(siste.getByRole("heading", { name: tittel })).toBeVisible();
+      await expect(siste.getByRole("listitem")).toHaveCount(3);
+      await expect(siste.getByRole("link", { name: /Se alle annonsene/ })).toHaveAttribute("href", "/annonser");
+    } finally {
+      await slettAnnonse(tittel);
+    }
   });
 });

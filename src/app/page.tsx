@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { SisteAnnonser } from "./SisteAnnonser";
+
+export const dynamic = "force-dynamic";
 
 const steg = [
   {
@@ -63,6 +66,8 @@ export default function Forside() {
           </svg>
         </div>
       </section>
+
+      <SisteAnnonser />
 
       <section aria-labelledby="slik-virker" className="border-t border-white/10 py-14">
         <h2 id="slik-virker" className="font-display text-3xl font-semibold text-mane">
