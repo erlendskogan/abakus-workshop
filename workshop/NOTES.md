@@ -10,9 +10,10 @@ Vi beholder MCP-serveren i modusen `unrestricted`, fordi agenten skal lage tabel
 
 Hvordan evaluerer og korrigerer agenten sitt eget arbeid?
 Agenten tar skjermbilder med Playwright og leser bildet selv. Den kjører også e2e-tester mot siden.
+På forsiden var testene grønne, men skjermbildet viste tre feil: en hard kant i bakgrunnen, en rød trekant som ikke lignet en lue, og Next sin dev-knapp over teksten. Testene fanget ingen av dem, men skjermbildet fanget alle.
 
 Hvilke tickets kan utføres parallelt, og hvordan organiserer vi avhengighetene?
-_Fill in here_
+Ticket 02 (forside) og 03 (annonseliste) kan gå parallelt. Det kan også 04 (søk) og 05 (legg ut annonse), men begge endrer databasemodulen for annonser. Ticket 03 venter også på at Docker-tilgangen er i orden.
 
 Other relevant notes
 Stack: Next.js med TypeScript og Tailwind, og pnpm. Vi implementerer én ticket om gangen med `/implement`.

@@ -4,10 +4,10 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] The front page shows the name FjøsFinn, what it does, and who it is for, in Norwegian bokmål with the terms from `GLOSSARY.md`.
-- [ ] The page has a night theme, and the text is easy to read.
-- [ ] The page has links to `/annonser` and `/annonser/ny`.
-- [ ] An e2e test checks the name, the description and the links.
-- [ ] The agent has taken screenshots at desktop and phone width, read them, and fixed what looked wrong.
+- [x] The front page shows the name FjøsFinn, what it does, and who it is for, in Norwegian bokmål with the terms from `GLOSSARY.md`.
+- [x] The page has a night theme, and the text is easy to read.
+- [x] The page has links to `/annonser` and `/annonser/ny`.
+- [x] An e2e test checks the name, the description and the links.
+- [x] The agent has taken screenshots at desktop and phone width, read them, and fixed what looked wrong.

@@ -1,103 +1,107 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const steg = [
+  {
+    tittel: "Finn det du mangler",
+    tekst: "Søk etter smør, ullsokker eller en høytjuge i nissestørrelse fra gårdene rundt deg.",
+  },
+  {
+    tittel: "Legg ut det du ikke trenger",
+    tekst: "Hundre år på samme låve gir mye rot. Skriv hva du har, og hva du vil ha i bytte.",
+  },
+  {
+    tittel: "Møtes ved gjerdet",
+    tekst: "Avtal byttet med nissen på nabogården, og gjør det samme natt. Ingen kråker involvert.",
+  },
+];
+
+export default function Forside() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="mx-auto max-w-5xl px-5 pb-20">
+      <header className="flex items-center justify-between py-6">
+        <span className="font-display text-xl font-semibold text-mane">FjøsFinn</span>
+        <Link
+          href="/annonser/ny"
+          className="rounded-full border border-lykt/60 px-4 py-2 text-sm text-lykt transition hover:bg-lykt/10"
+        >
+          Legg ut annonse
+        </Link>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section className="relative grid gap-10 pt-10 pb-16 md:grid-cols-[1.4fr_1fr] md:items-center md:pt-20">
+        <div>
+          <p className="mb-4 text-sm tracking-widest text-lykt uppercase">Åpent om natten · stengt for mennesker</p>
+          <h1 className="font-display text-6xl font-bold text-mane md:text-8xl">FjøsFinn</h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-tekst md:text-xl">
+            Markedsplassen for fjøsnisser. Bytt bort det som hoper seg opp på låven, og finn akkurat det du mangler,
+            hos nissen på nabogården. Her finnes ingen penger, bare gode bytter.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/annonser"
+              className="rounded-full bg-lykt px-6 py-3 font-semibold text-natt shadow-[0_0_30px_-5px] shadow-lykt/60 transition hover:bg-mane"
+            >
+              Se annonsene
+            </Link>
+            <Link
+              href="/annonser/ny"
+              className="rounded-full border border-tekst-svak/40 px-6 py-3 font-semibold text-tekst transition hover:border-mane hover:text-mane"
+            >
+              Legg ut annonse
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+        <div aria-hidden className="relative mx-auto hidden aspect-square w-64 md:block">
+          <div className="absolute inset-0 rounded-full bg-mane shadow-[0_0_120px_20px] shadow-mane/25" />
+          <div className="absolute top-6 left-10 h-10 w-10 rounded-full bg-[#e4d7ae]" />
+          <div className="absolute right-14 bottom-12 h-6 w-6 rounded-full bg-[#e4d7ae]" />
+          <svg viewBox="0 0 120 110" className="absolute -bottom-6 -left-8 w-36 -rotate-12 drop-shadow-lg">
+            <path d="M14 92 C 30 40, 60 10, 100 18 C 84 30, 78 50, 96 92 Z" fill="var(--lue)" />
+            <circle cx="104" cy="20" r="10" fill="#fff" />
+            <rect x="6" y="86" width="98" height="18" rx="9" fill="#fff" />
+          </svg>
+        </div>
+      </section>
+
+      <section aria-labelledby="slik-virker" className="border-t border-white/10 py-14">
+        <h2 id="slik-virker" className="font-display text-3xl font-semibold text-mane">
+          Slik virker FjøsFinn
+        </h2>
+        <ol className="mt-8 grid gap-5 md:grid-cols-3">
+          {steg.map((s, i) => (
+            <li key={s.tittel} className="rounded-2xl border border-white/10 bg-natt-lys/70 p-6">
+              <span className="font-display text-3xl text-lykt">{i + 1}</span>
+              <h3 className="mt-2 text-lg font-semibold text-tekst">{s.tittel}</h3>
+              <p className="mt-2 leading-relaxed text-tekst-svak">{s.tekst}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section aria-labelledby="hvem" className="grid gap-8 border-t border-white/10 py-14 md:grid-cols-2">
+        <div>
+          <h2 id="hvem" className="font-display text-3xl font-semibold text-mane">
+            Hvem er FjøsFinn for?
+          </h2>
+          <p className="mt-4 leading-relaxed text-tekst">
+            For fjøsnisser på alle gårder i Norge, store som små. Du trenger ingen konto: skriv navnet ditt og gården
+            din, så vet de andre nissene hvor de finner deg.
+          </p>
+          <p className="mt-4 leading-relaxed text-tekst-svak">
+            Mennesker er ikke velkomne. Bønder som har glemt smørklatten i grøten, er spesielt ikke velkomne.
+          </p>
+        </div>
+        <blockquote className="rounded-2xl border-l-4 border-lue bg-natt-lys/70 p-6 italic leading-relaxed text-tekst">
+          «Bonden glemte smøret i grøten for tredje år på rad. På FjøsFinn fant jeg en smørklatt hos Tulla på Øvre Li
+          samme natt. Kuene beholdt halene.»
+          <footer className="mt-4 text-sm not-italic text-tekst-svak">Gulbrand, Nedre Haugen</footer>
+        </blockquote>
+      </section>
+
+      <footer className="border-t border-white/10 pt-8 text-sm text-tekst-svak">
+        FjøsFinn er bare åpent om natten, når menneskene sover. Ingen penger, ingen kråker.
       </footer>
-    </div>
+    </main>
   );
 }
