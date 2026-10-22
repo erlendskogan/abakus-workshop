@@ -57,7 +57,7 @@ The team can be new to programming. Talk to them in short, plain Norwegian (bokm
 
    The step is done when the output shows the usage text (`usage: postgres-mcp`). If the output shows an error, the MCP server cannot start. Show the error to the team, tell them to ask the workshop host for help, and stop.
 
-6. Connect the MCP server. Claude Code starts MCP servers when the session starts. If the database was down then, the `postgres` server is not connected. Ask the team to run `/mcp`, select `postgres`, and enable or reconnect it. Wait until they say it is done. If the reconnect times out after 30 seconds, the MCP server could not reach the database: go back to step 3.
+6. Connect the MCP server. Claude Code starts MCP servers when the session starts. If the database was down then, the `postgres` server is not connected. Ask the team to run `/mcp`, select `postgres`, and enable or reconnect it. Wait until they say it is done. If the reconnect times out after 30 seconds, the MCP server could not reach the database: go back to step 3. On Linux, a timeout while the database is ready means that the container cannot reach `host.docker.internal`: follow `#### På Linux` in `README.md`.
 
 7. Check the connection. Call the `postgres` MCP tool that lists schemas. The step is done when the result includes the schema `public`. If the tool is not available, ask the team what `/mcp` shows for `postgres`, and help them from that output.
 

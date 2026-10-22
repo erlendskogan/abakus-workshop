@@ -154,6 +154,26 @@ Inne i MCP-containeren betyr `localhost` containeren selv.
 Derfor bytter imaget ut `localhost` i URL-en med `host.docker.internal`, som er adressen til maskinen deres.
 Hvis dere endrer `.mcp.json`, må dere koble til MCP-serveren på nytt med `/mcp`.
 
+#### På Linux
+
+Docker på Linux har ikke adressen `host.docker.internal`.
+Derfor får `/mcp` tidsavbrudd (timeout) når MCP-serveren prøver å nå databasen.
+Løsningen er å la MCP-containeren bruke nettverket til maskinen deres (`--network host`).
+Da betyr `localhost` maskinen deres, også inne i containeren.
+
+Kjør denne kommandoen fra denne mappen.
+Den lager en lokal versjon av `postgres` som bare gjelder for dere, og som Claude Code bruker i stedet for den i `.mcp.json`:
+
+```sh
+claude mcp add-json postgres --scope local '{"command":"docker","args":["run","-i","--rm","--network","host","--add-host=host.docker.internal:127.0.0.1","-e","DATABASE_URI","crystaldba/postgres-mcp","--access-mode=unrestricted"],"env":{"DATABASE_URI":"postgresql://abakus:local-dev-password@localhost:55432/abakus_workshop"}}'
+```
+
+Kjør så `/mcp` i Claude Code, velg `postgres`, og koble til på nytt.
+
+Brukeren deres må også være med i gruppen `docker`.
+Hvis `docker ps` gir `permission denied`, kjør `sudo usermod -aG docker $USER` i en vanlig terminal.
+Logg så ut og inn igjen, fordi Linux leser gruppene deres bare når dere logger inn.
+
 For å kjøre MCP-serveren selv i en terminal:
 
 ```sh
