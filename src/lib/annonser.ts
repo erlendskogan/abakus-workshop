@@ -36,3 +36,15 @@ export async function sokAnnonser(tekst: string): Promise<Annonse[]> {
   );
   return rows;
 }
+
+export type NyAnnonse = Omit<Annonse, "id" | "opprettet">;
+
+export async function opprettAnnonse(ny: NyAnnonse): Promise<Annonse> {
+  const { rows } = await pool.query<Annonse>(
+    `INSERT INTO annonser (tittel, beskrivelse, byttes_mot, nisse, gard)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING ${kolonner}`,
+    [ny.tittel, ny.beskrivelse, ny.byttesMot, ny.nisse, ny.gard],
+  );
+  return rows[0];
+}

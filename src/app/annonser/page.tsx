@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AnnonseKort } from "@/components/AnnonseKort";
 import { nyesteAnnonser, sokAnnonser } from "@/lib/annonser";
 
 export const dynamic = "force-dynamic";
@@ -7,8 +8,6 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Annonser – FjøsFinn",
 };
-
-const dato = new Intl.DateTimeFormat("nb-NO", { day: "numeric", month: "long" });
 
 export default async function Annonser({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
   const { q } = await searchParams;
@@ -77,16 +76,7 @@ export default async function Annonser({ searchParams }: { searchParams: Promise
         <ul className="mt-8 grid gap-5 md:grid-cols-2">
           {annonser.map((a) => (
             <li key={a.id}>
-              <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-natt-lys/70 p-6">
-                <h2 className="font-display text-2xl font-semibold text-mane">{a.tittel}</h2>
-                <p className="mt-3 flex-1 leading-relaxed text-tekst">{a.beskrivelse}</p>
-                <p className="mt-4 text-lykt">
-                  <span className="text-sm tracking-widest uppercase">Byttes mot:</span> {a.byttesMot}
-                </p>
-                <p className="mt-4 border-t border-white/10 pt-4 text-sm text-tekst-svak">
-                  {a.nisse} på {a.gard} · <time dateTime={a.opprettet.toISOString()}>{dato.format(a.opprettet)}</time>
-                </p>
-              </article>
+              <AnnonseKort annonse={a} />
             </li>
           ))}
         </ul>

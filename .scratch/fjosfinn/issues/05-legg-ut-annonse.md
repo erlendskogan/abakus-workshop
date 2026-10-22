@@ -4,9 +4,9 @@
 
 **Blocked by:** 03. Can run in parallel with 04, but both change the data module for Annonser.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A filled-in form saves the Annonse and shows it on `/annonser`.
-- [ ] A form with a missing field is not saved, and the page says which field is missing.
-- [ ] The agent has checked through the `postgres` MCP server that the Annonse is in the database.
-- [ ] An e2e test posts an Annonse with a unique title, sees it in the list, and removes it afterwards.
+- [x] A filled-in form saves the Annonse and shows it on `/annonser`.
+- [x] A form with a missing field is not saved, and the page says which field is missing.
+- [x] The agent has checked through the `postgres` MCP server that the Annonse is in the database.
+- [x] An e2e test posts an Annonse with a unique title, sees it in the list, and removes it afterwards.
