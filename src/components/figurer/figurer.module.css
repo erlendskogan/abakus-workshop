@@ -1,0 +1,253 @@
+/*
+ * Motion for the figures. Pure CSS, so the figures render on the server.
+ *
+ * Hover comes from the nearest `.group` ancestor (the card). A `.group` with
+ * the attribute `data-hover` shows the hover pose all the time, for previews.
+ * All movement sits inside `prefers-reduced-motion: no-preference`; with
+ * reduced motion the figures keep a still pose and only light changes.
+ */
+
+.figur {
+  display: block;
+  overflow: visible;
+}
+
+/* Parts that move: transform around their own box. */
+.flamme,
+.flammeKjerne,
+.sekk,
+.sokk,
+.lueVenstre,
+.lueHoyre,
+.hjerte,
+.hode,
+.oyne,
+.nisse {
+  transform-box: fill-box;
+}
+
+/* ---------- LyktFigur ---------- */
+
+.lyktGlod {
+  opacity: 0.55;
+  transition: opacity 400ms ease;
+}
+.flamme {
+  transform-origin: 50% 100%;
+  transition:
+    transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 400ms ease;
+}
+.flammeKjerne {
+  transform-origin: 50% 100%;
+}
+:global(.group:hover) .lyktGlod,
+:global(.group:focus-visible) .lyktGlod,
+:global(.group[data-hover]) .lyktGlod {
+  opacity: 1;
+}
+:global(.group:hover) .flamme,
+:global(.group:focus-visible) .flamme,
+:global(.group[data-hover]) .flamme {
+  filter: saturate(1.25) brightness(1.08);
+}
+
+/* ---------- SekkFigur ---------- */
+
+.sekk {
+  transform-origin: 50% 100%;
+}
+.sokk {
+  transform-origin: 50% 100%;
+  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- GjerdeFigur ---------- */
+
+.lueVenstre {
+  transform-origin: 50% 100%;
+  transform: rotate(-6deg);
+}
+.lueHoyre {
+  transform-origin: 50% 100%;
+  transform: rotate(6deg);
+}
+.lueVenstre,
+.lueHoyre {
+  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hjerte {
+  transform-origin: 50% 100%;
+  opacity: 0;
+  transition:
+    opacity 300ms ease 120ms,
+    transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms;
+}
+:global(.group:hover) .hjerte,
+:global(.group:focus-visible) .hjerte,
+:global(.group[data-hover]) .hjerte {
+  opacity: 1;
+}
+
+/* ---------- TomtSokFigur ---------- */
+
+.nisse {
+  transform-origin: 50% 100%;
+}
+.hode {
+  transform-origin: 50% 85%;
+  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.oyne {
+  transform-origin: 50% 50%;
+}
+.smaaGlod {
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Lantern: a gentle flicker at rest, a bigger and livelier flame on hover. */
+  .flammeKjerne {
+    animation: flakk 2.8s ease-in-out infinite;
+  }
+  :global(.group:hover) .flamme,
+  :global(.group:focus-visible) .flamme,
+  :global(.group[data-hover]) .flamme {
+    transform: scale(1.22, 1.32);
+  }
+  :global(.group:hover) .flammeKjerne,
+  :global(.group:focus-visible) .flammeKjerne,
+  :global(.group[data-hover]) .flammeKjerne {
+    animation-duration: 0.9s;
+  }
+
+  /* Sack: settles once, and the sock peeks out. */
+  :global(.group:hover) .sekk,
+  :global(.group:focus-visible) .sekk {
+    animation: sett-seg 650ms cubic-bezier(0.3, 0.7, 0.4, 1) 1;
+  }
+  :global(.group:hover) .sokk,
+  :global(.group:focus-visible) .sokk,
+  :global(.group[data-hover]) .sokk {
+    transform: translateY(-24%) rotate(-6deg);
+  }
+
+  /* Fence: the two hats lean towards each other, a small heart rises. */
+  .hjerte {
+    transform: translateY(30%) scale(0.6);
+  }
+  :global(.group:hover) .lueVenstre,
+  :global(.group:focus-visible) .lueVenstre,
+  :global(.group[data-hover]) .lueVenstre {
+    transform: rotate(14deg) translateX(4%);
+  }
+  :global(.group:hover) .lueHoyre,
+  :global(.group:focus-visible) .lueHoyre,
+  :global(.group[data-hover]) .lueHoyre {
+    transform: rotate(-14deg) translateX(-4%);
+  }
+  :global(.group:hover) .hjerte,
+  :global(.group:focus-visible) .hjerte,
+  :global(.group[data-hover]) .hjerte {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Empty search: the Nisse rises once, blinks, looks around, tilts on hover. */
+  .nisse {
+    animation: stig-opp 1s cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
+  }
+  .oyne {
+    animation:
+      blunk 5.5s ease-in-out 1.6s infinite,
+      se-rundt 9s ease-in-out 1.6s infinite;
+  }
+  .smaaGlod {
+    animation: pulser 3.2s ease-in-out infinite;
+  }
+  :global(.group:hover) .hode,
+  :global(.group:focus-visible) .hode,
+  :global(.group[data-hover]) .hode {
+    transform: rotate(-9deg);
+  }
+}
+
+@keyframes flakk {
+  0%,
+  100% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+  25% {
+    transform: scale(0.96, 1.06) skewX(-3deg);
+  }
+  50% {
+    transform: scale(1.03, 0.95) skewX(2deg);
+  }
+  75% {
+    transform: scale(0.98, 1.04) skewX(-1deg);
+  }
+}
+
+@keyframes sett-seg {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  25% {
+    transform: translateY(-4%) scale(0.97, 1.04);
+  }
+  55% {
+    transform: translateY(0) scale(1.05, 0.93);
+  }
+  80% {
+    transform: translateY(0) scale(0.99, 1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+@keyframes stig-opp {
+  from {
+    transform: translateY(42%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes blunk {
+  0%,
+  46%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  48% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes se-rundt {
+  0%,
+  18%,
+  100% {
+    translate: 0 0;
+  }
+  25%,
+  42% {
+    translate: -1.6px 0;
+  }
+  52%,
+  72% {
+    translate: 1.6px 0;
+  }
+}
+
+@keyframes pulser {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
