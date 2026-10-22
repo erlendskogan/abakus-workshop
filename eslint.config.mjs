@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      // Git worktrees of this repo, with their own build output.
+      ".claude/**",
     ],
   },
 ];
